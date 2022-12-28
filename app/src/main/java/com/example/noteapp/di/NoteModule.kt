@@ -8,7 +8,7 @@ import com.example.noteapp.feature_note.domain.repository.NoteRepository
 import com.example.noteapp.feature_note.domain.usecase.AddNoteUseCase
 import com.example.noteapp.feature_note.domain.usecase.DeleteNoteUseCase
 import com.example.noteapp.feature_note.domain.usecase.GetNoteUseCase
-import com.example.noteapp.feature_note.domain.usecase.NoteUsecse
+import com.example.noteapp.feature_note.domain.usecase.NoteUsecase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,8 +33,8 @@ object NoteModule {
 
     @Provides
     @Singleton
-    fun providesNotesUsecase(repository: NoteRepository): NoteUsecse {
-        return NoteUsecse(
+    fun providesNotesUsecase(repository: NoteRepository): NoteUsecase {
+        return NoteUsecase(
             getNoteUseCase = GetNoteUseCase(repository),
             deleteNoteUseCase = DeleteNoteUseCase(repository),
             addNoteUseCase = AddNoteUseCase(repository)

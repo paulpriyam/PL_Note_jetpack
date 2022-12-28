@@ -1,13 +1,11 @@
 package com.example.noteapp.feature_note.presentation.notes
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.noteapp.feature_note.domain.model.Note
-import com.example.noteapp.feature_note.domain.usecase.DeleteNoteUseCase
-import com.example.noteapp.feature_note.domain.usecase.NoteUsecse
+import com.example.noteapp.feature_note.domain.usecase.NoteUsecase
 import com.example.noteapp.feature_note.domain.util.NoteFilter
 import com.example.noteapp.feature_note.domain.util.OrderType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(
-    private val noteUseCase: NoteUsecse
+    private val noteUseCase: NoteUsecase
 ) : ViewModel() {
     private val _noteState = mutableStateOf(Notestates())
     val noteStates: State<Notestates> = _noteState
