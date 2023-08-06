@@ -28,80 +28,11 @@ import com.example.noteapp.ui.theme.LightGreen
 
 @Composable
 fun NoteItem(
-    modifier: Modifier = Modifier,
-    note: Note,
-    cornerRadius: Dp = 10.dp,
-    cutCornerSize: Dp = 30.dp,
-    onClickDelete: () -> Unit
 ) {
 
-    Box(modifier = modifier) {
-        Canvas(modifier = Modifier.matchParentSize()) {
-            val clipPath = Path().apply {
-                lineTo(size.width - cutCornerSize.toPx(), 0f)
-                lineTo(size.width, cutCornerSize.toPx())
-                lineTo(size.width, size.height)
-                lineTo(0f, size.height)
-                close()
-            }
-
-            clipPath(clipPath) {
-                drawRoundRect(
-                    color = Color(note.color),
-                    size = size,
-                    cornerRadius = CornerRadius(cornerRadius.toPx())
-                )
-                drawRoundRect(
-                    color = Color(
-                        ColorUtils.blendARGB(note.color, 0x000000, 0.2f)
-                    ),
-                    topLeft = Offset(size.width - cutCornerSize.toPx(), -100f),
-                    size = Size(cutCornerSize.toPx() + 100f, cutCornerSize.toPx() + 100f),
-                    cornerRadius = CornerRadius(cornerRadius.toPx())
-                )
-            }
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .padding(end = 32.dp)
-        ) {
-            Text(
-                text = note.title,
-                style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.surface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = note.content,
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.surface,
-                maxLines = 10,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-        IconButton(
-            onClick = onClickDelete,
-            modifier = Modifier.align(Alignment.BottomEnd)
-        ) {
-            Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
-        }
-    }
 }
 
 @Preview
 @Composable
 fun NoteItemPreview() {
-    NoteItem(
-        note = Note(
-            title = "abcde",
-            content = "qwertyuidsasdfghgfdwertrewqwedfdsas werfdsdf dfdsdc dfdfdf",
-            timeStamp = 1233333L, color = Color.Red.toArgb()
-        )
-    ) {
-
-    }
 }

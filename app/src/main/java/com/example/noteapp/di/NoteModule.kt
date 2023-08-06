@@ -31,13 +31,4 @@ object NoteModule {
         return NoteRepositoryImpl(db.notesDao)
     }
 
-    @Provides
-    @Singleton
-    fun providesNotesUsecase(repository: NoteRepository): NoteUsecase {
-        return NoteUsecase(
-            getNoteUseCase = GetNoteUseCase(repository),
-            deleteNoteUseCase = DeleteNoteUseCase(repository),
-            addNoteUseCase = AddNoteUseCase(repository)
-        )
-    }
 }

@@ -9,24 +9,4 @@ import kotlinx.coroutines.flow.map
 
 class GetNoteUseCase(val repository: NoteRepository) {
 
-    operator fun invoke(noteFilter: NoteFilter): Flow<List<Note>> {
-        return repository.getAllNotes().map { notes ->
-            when (noteFilter.orderType) {
-                OrderType.Ascending -> {
-                    when (noteFilter) {
-                        is NoteFilter.Title -> notes.sortedBy { it.title.lowercase() }
-                        is NoteFilter.Date -> notes.sortedBy { it.timeStamp }
-                        is NoteFilter.Color -> notes.sortedBy { it.color }
-                    }
-                }
-                OrderType.Descending -> {
-                    when (noteFilter) {
-                        is NoteFilter.Title -> notes.sortedBy { it.title.lowercase() }
-                        is NoteFilter.Date -> notes.sortedBy { it.timeStamp }
-                        is NoteFilter.Color -> notes.sortedBy { it.color }
-                    }
-                }
-            }
-        }
-    }
 }
