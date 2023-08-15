@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
@@ -85,6 +86,7 @@ fun AddEditNoteScreen(
                     Box(
                         modifier = Modifier
                             .size(50.dp)
+                            .shadow(elevation = 15.dp, shape = CircleShape)
                             .clip(CircleShape)
                             .background(color)
                             .border(
@@ -93,6 +95,7 @@ fun AddEditNoteScreen(
                                 shape = CircleShape
                             )
                             .clickable {
+                                viewModel.onEvent(AddEditNoteEvents.ChangeColor(colorInt))
                                 scope.launch {
                                     noteBgAnimatable.animateTo(
                                         targetValue = color,
@@ -104,33 +107,35 @@ fun AddEditNoteScreen(
                             }
                     )
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                TransparentHintTextField(
-                    text = noteTitle.text,
-                    hint = noteTitle.hint,
-                    onFocusChanged = {
-                        viewModel.onEvent(AddEditNoteEvents.ChangeTitleFocus(it))
-                    },
-                    onTextChanged = {
-                        viewModel.onEvent(AddEditNoteEvents.EnteredTitle(it))
-                    },
-                    textStyle = MaterialTheme.typography.h5,
-                    isHintVisible = true
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                TransparentHintTextField(
-                    text = noteContent.text,
-                    hint = noteContent.hint,
-                    onFocusChanged = {
-                        viewModel.onEvent(AddEditNoteEvents.ChangeContentFocus(it))
-                    },
-                    onTextChanged = {
-                        viewModel.onEvent(AddEditNoteEvents.EnteredContent(it))
-                    },
-                    textStyle = MaterialTheme.typography.body1,
-                    modifier = Modifier.fillMaxHeight()
-                )
             }
+            Spacer(modifier = Modifier.height(16.dp))
+            TransparentHintTextField(
+                text = noteTitle.text,
+                hint = noteTitle.hint,
+                onFocusChanged = {
+                    viewModel.onEvent(AddEditNoteEvents.ChangeTitleFocus(it))
+                },
+                onTextChanged = {
+                    viewModel.onEvent(AddEditNoteEvents.EnteredTitle(it))
+                },
+                textStyle = MaterialTheme.typography.h5,
+                isSingleLine = true,
+                isHintVisible = noteTitle.isHintVisible
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            TransparentHintTextField(
+                text = noteContent.text,
+                hint = noteContent.hint,
+                onFocusChanged = {
+                    viewModel.onEvent(AddEditNoteEvents.ChangeContentFocus(it))
+                },
+                onTextChanged = {
+                    viewModel.onEvent(AddEditNoteEvents.EnteredContent(it))
+                },
+                textStyle = MaterialTheme.typography.body1,
+                modifier = Modifier.fillMaxHeight(),
+                isHintVisible = noteContent.isHintVisible
+            )
         }
     }
 }
