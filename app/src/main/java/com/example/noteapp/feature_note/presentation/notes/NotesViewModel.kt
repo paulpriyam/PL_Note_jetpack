@@ -61,7 +61,7 @@ class NotesViewModel(
 
     private fun getNotes(noteFilter: NoteFilter) {
         getNoteJob?.cancel()
-        getNoteJob = noteUseCase.getNoteUseCase().onEach { notes ->
+        getNoteJob = noteUseCase.getNoteUseCase(noteFilter).onEach { notes ->
             _state.value = state.value.copy(
                 notes = notes,
                 noteFilter = noteFilter
