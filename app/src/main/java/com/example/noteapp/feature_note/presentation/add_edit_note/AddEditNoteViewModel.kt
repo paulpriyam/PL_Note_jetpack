@@ -12,11 +12,12 @@ import com.example.noteapp.feature_note.domain.usecase.NoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class AddEditNoteViewModel(
+class AddEditNoteViewModel @Inject constructor(
     val noteUseCase: NoteUseCase,
-    val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _noteTitle = mutableStateOf<NoteTextFieldState>(
